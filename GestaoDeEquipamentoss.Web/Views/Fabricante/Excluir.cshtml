@@ -1,3 +1,8 @@
+@using GestaoDeEquipamentosWeb.ConsoleApp.ModuloFabricante
+@using GestaoDeEquipamentoss.Web.ModuloFabricante
+
+@model Fabricante;
+
 <h1>Gestão de Equipamentos</h1>
 
 <hr>
@@ -5,27 +10,28 @@
     <a href="/Fabricante/Listar">Controle de Fabricantes</a> -
     <a href="/Equipamento/Listar">Controle de Equipamentos</a> -
     <a href="/Chamado/Listar">Controle de Chamados</a> -
+    <a href="https://www.academiadoprogramador.net" target="_blank">Academia do Programador</a>
 <hr>
 
-<h2>Cadastrar Fabricante</h2>
+<h2>Exclusão de Fabricante</h2>
 
-<form action="/Fabricante/Cadastrar" method="post">
+<form action="/Fabricante/Excluir/@Model.Id" method="post">
     <div>
         <label>Nome</label>
         <br>
-        <input type="text" name="Nome">
+        <input type="text" name="Nome" value="@Model.Nome" disabled>
     </div>
 
     <div>
         <label>Email</label>
         <br>
-        <input type="email" name="Email">
+        <input type="email" name="Email" value="@Model.Email" disabled>
     </div>
 
     <div>
         <label>Telefone</label>
         <br>
-        <input type="text" name="Telefone">
+        <input type="text" name="Telefone" value="@Model.Telefone" disabled>
     </div>
 
     <hr>
