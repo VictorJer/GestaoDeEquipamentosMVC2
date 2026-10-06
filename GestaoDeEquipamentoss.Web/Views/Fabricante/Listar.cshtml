@@ -2,8 +2,8 @@
     Layout = "_Layout";
     ViewBag.Titulo = "Listar Fabricantes";
 }
-@using GestaoDeEquipamentoss.Web.ModuloFabricante
-@model List<Fabricante>;
+@using GestaoDeEquipamentoss.Web.Models
+@model List<ListarFabricantesViewModel>;
 
 
 
@@ -24,7 +24,7 @@
     </thead>
 
     <tbody>
-        @foreach (Fabricante f in Model)
+        @foreach (ListarFabricantesViewModel f in Model)
         {
             <tr>
                 <td>@f.Id</td>
