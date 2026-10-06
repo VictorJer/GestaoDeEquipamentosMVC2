@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 // Middlewares - Funções que executam em cada chamada que o nosso servidor vai receber
+app.UseStaticFiles();
 app.UseRouting();
 app.MapDefaultControllerRoute();
 
