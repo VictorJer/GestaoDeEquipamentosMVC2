@@ -1,5 +1,7 @@
 @{
     Layout = "_Layout";
+    ViewBag.Titulo = "Excluir Fabricante";
+
 }
 @using GestaoDeEquipamentosWeb.ConsoleApp.ModuloFabricante
 @using GestaoDeEquipamentoss.Web.ModuloFabricante
@@ -8,7 +10,6 @@
 
 
 
-<h2>Exclusão de Fabricante</h2>
 
 <form action="/Fabricante/Excluir/@Model.Id" method="post">
     <div>

@@ -1,13 +1,14 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestão de Equipamentos</title>
+        <title>@ViewBag.Titulo - Gestão de Equipamentos</title>
     </head>
     <body>
-        <h1>Gestão de Equipamentos</h1>
+        <nav>
+            <h1>Gestão de Equipamentos</h1>
 
                 <hr>
                     <a href="/">Início</a> -
@@ -15,7 +16,14 @@
                     <a href="/Equipamento/Listar">Controle de Equipamentos</a> -
                     <a href="/Chamado/Listar">Controle de Chamados</a> -
                 <hr> 
+        </nav>
 
+        <head>
+            <h2>@ViewBag.Titulo</h2>
+        </head>
+
+        <main>
             @RenderBody();
+        </main>
     </body>
 </html>
