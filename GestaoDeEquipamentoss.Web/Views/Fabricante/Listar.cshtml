@@ -1,0 +1,45 @@
+@using GestaoDeEquipamentoss.Web.ModuloFabricante
+@model List<Fabricante>;
+
+<h1>Gestão de Equipamentos</h1>
+
+<hr>
+    <a href="/">Início</a> -
+    <a href="/Fabricante/Listar">Controle de Fabricantes</a> -
+    <a href="/Equipamento/Listar">Controle de Equipamentos</a> -
+    <a href="/Chamado/Listar">Controle de Chamados</a> -
+<hr>
+
+<h2>Listar Fabricantes</h2>
+
+<hr>
+<a href="/Fabricante/Cadastrar">Cadastrar Fabricante</a>
+</hr>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Fabricante f in Model)
+        {
+            <tr>
+                <td>@f.Id</td>
+                <td>@f.Nome</td>
+                <td>@f.Email</td>
+                <td>@f.Telefone</td>
+                <td><a href="/Fabricante/Editar/@f.Id">Editar</a></td>
+                <td><a href="/Fabricante/Excluir/@f.Id">Excluir</a></td>
+            </tr>  
+        }        
+    </tbody>
+</table>
+
