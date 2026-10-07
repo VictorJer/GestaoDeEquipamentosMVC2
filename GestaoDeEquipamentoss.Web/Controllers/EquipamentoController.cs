@@ -36,4 +36,18 @@ public class EquipamentoController : Controller
 
         return View(viewModel);
     }
+
+    [HttpGet]
+    public ActionResult Cadastrar()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public ActionResult Cadastrar(CadastrarEquipamentoViewModel cadastrarVm)
+    {
+        
+
+        return RedirectToAction(nameof(Listar));
+    }
 }

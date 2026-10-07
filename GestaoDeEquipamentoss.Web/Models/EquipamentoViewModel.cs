@@ -8,6 +8,14 @@ public record ListarEquipamentosViewModel(
     string NomeFabricante
 );
 
+public record CadastrarEquipamentoViewModel(
+    string Nome,
+    decimal PrecoAquisicao,
+    DateTime DataFabricacao,
+   Fabricante Fabricante
+);
+
+
     // public string Nome { get; set; } = string.Empty;
     // public decimal PrecoAquisicao { get; set; }
     // public DateTime DataFabricacao { get; set; }
