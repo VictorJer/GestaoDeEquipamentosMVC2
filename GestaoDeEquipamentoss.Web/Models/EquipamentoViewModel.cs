@@ -20,7 +20,7 @@ public record EditarEquipamentoViewModel(
     string Nome,
     decimal PrecoAquisicao,
     DateTime DataFabricacao,
-    Fabricante Fabricante
+    string FabricanteId
 );
 
 

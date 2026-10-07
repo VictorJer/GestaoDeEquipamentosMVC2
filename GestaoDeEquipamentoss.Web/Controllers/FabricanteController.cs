@@ -81,14 +81,14 @@ public class FabricanteController : Controller
     [HttpPost]
     public ActionResult Editar(EditarFabricanteViewModel vm)
     {
-        Fabricante? fabricante = repositorioFabricante.SelecionarPorId(vm.Id);
+        Fabricante? fabricante = new Fabricante(
+            vm.Nome, 
+            vm.Email, 
+            vm.Telefone
+            );
 
         if (fabricante == null)
             return RedirectToAction(nameof(Listar));
-
-        fabricante.Nome = vm.Nome;
-        fabricante.Email = vm.Email;
-        fabricante.Telefone = vm.Telefone;
 
         repositorioFabricante.Editar(vm.Id, fabricante);
 

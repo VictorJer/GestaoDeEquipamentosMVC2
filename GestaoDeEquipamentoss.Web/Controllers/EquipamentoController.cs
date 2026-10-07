@@ -85,10 +85,34 @@ public class EquipamentoController : Controller
             equipamentoSelecionado.Nome,
             equipamentoSelecionado.PrecoAquisicao,
             equipamentoSelecionado.DataFabricacao,
-            equipamentoSelecionado.Fabricante
+            equipamentoSelecionado.Fabricante.Id
         );
 
         return View(editarVm);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(EditarEquipamentoViewModel vm)
+    {
+        Fabricante? fabricante = repositorioFabricante.SelecionarPorId(vm.FabricanteId);
+
+        if (fabricante == null)
+            return RedirectToAction(nameof(Listar));
+
+        Equipamento? equipamento = new Equipamento(
+            vm.Nome, 
+            vm.PrecoAquisicao, 
+            vm.DataFabricacao, 
+            fabricante
+            );
+        
+        var result = repositorioEquipamento.Editar(vm.Id, equipamento);
+
+        if (!result)
+            return RedirectToAction(nameof(Listar));
+
+        
+        return RedirectToAction(nameof(Listar));
     }
 
     private List<ListarFabricantesViewModel> CarregarFabricantes()
