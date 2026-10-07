@@ -120,6 +120,8 @@ public class EquipamentoController : Controller
     {
         Equipamento? equipamentoSelecionado = repositorioEquipamento.SelecionarPorId(id);
 
+        ViewBag.fabricantes = CarregarFabricantes();
+
         if (equipamentoSelecionado == null)
             return RedirectToAction(nameof(Listar));       
 
@@ -135,7 +137,8 @@ public class EquipamentoController : Controller
     }
 
     [HttpPost]
-    public ActionResult Excluir(ExcluirEquipamentoViewModel excluirVm)
+    [ActionName("Excluir")]
+    public ActionResult ExcluirConfirmado(ExcluirEquipamentoViewModel excluirVm)
     {
         Equipamento? equipamentoSelecionado = repositorioEquipamento.SelecionarPorId(excluirVm.Id);
 
