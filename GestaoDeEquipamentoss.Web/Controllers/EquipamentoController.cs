@@ -115,6 +115,38 @@ public class EquipamentoController : Controller
         return RedirectToAction(nameof(Listar));
     }
 
+    [HttpGet]
+    public ActionResult Excluir(string id)
+    {
+        Equipamento? equipamentoSelecionado = repositorioEquipamento.SelecionarPorId(id);
+
+        if (equipamentoSelecionado == null)
+            return RedirectToAction(nameof(Listar));       
+
+        ExcluirEquipamentoViewModel excluirVm = new ExcluirEquipamentoViewModel(
+            id,
+            equipamentoSelecionado.Nome,
+            equipamentoSelecionado.PrecoAquisicao,
+            equipamentoSelecionado.DataFabricacao,
+            equipamentoSelecionado.Fabricante.Nome
+        );
+
+        return View(excluirVm);
+    }
+
+    [HttpPost]
+    public ActionResult Excluir(ExcluirEquipamentoViewModel excluirVm)
+    {
+        Equipamento? equipamentoSelecionado = repositorioEquipamento.SelecionarPorId(excluirVm.Id);
+
+        if (equipamentoSelecionado == null)
+            return RedirectToAction(nameof(Listar));
+        
+        repositorioEquipamento.Excluir(equipamentoSelecionado);
+
+        return RedirectToAction(nameof(Listar));
+    }
+
     private List<ListarFabricantesViewModel> CarregarFabricantes()
     {
         List<Fabricante> fabricantes = repositorioFabricante.SelecionarTodos();
