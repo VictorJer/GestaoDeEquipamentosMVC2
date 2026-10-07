@@ -12,7 +12,7 @@ public record CadastrarEquipamentoViewModel(
     string Nome,
     decimal PrecoAquisicao,
     DateTime DataFabricacao,
-   Fabricante Fabricante
+    string FabricanteId
 );
 
 

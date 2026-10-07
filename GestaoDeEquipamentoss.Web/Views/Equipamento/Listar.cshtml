@@ -30,8 +30,8 @@
             <tr>
                 <td>@e.Id</td>
                 <td>@e.Nome</td>
-                <td>@e.PrecoAquisicao</td>
-                <td>@e.DataFabricacao</td>
+                <td>@e.PrecoAquisicao.ToString("C2")</td>
+                <td>@e.DataFabricacao.ToShortDateString()</td>
                 <td>@e.NomeFabricante</td>
                 <td><a href="/Fabricante/Editar/@e.Id">Editar</a></td>
                 <td><a href="/Fabricante/Excluir/@e.Id">Excluir</a></td>

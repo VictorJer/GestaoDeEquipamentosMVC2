@@ -1,6 +1,9 @@
+using GestaoDeEquipamentoss.Web.Models;
+using GestaoDeEquipamentoss.Web.ModuloFabricante;
 using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado.Arquivos;
 using GestaoDeEquipamentosWeb.ConsoleApp.ModuloEquipamento;
+using GestaoDeEquipamentosWeb.ConsoleApp.ModuloFabricante;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoDeEquipamentoss.Web.Controllers;
@@ -8,12 +11,14 @@ namespace GestaoDeEquipamentoss.Web.Controllers;
 public class EquipamentoController : Controller
 {
     IRepositorio<Equipamento> repositorioEquipamento;
+    IRepositorio<Fabricante> repositorioFabricante;
     public EquipamentoController()
     {
         ContextoJson contexto = new ContextoJson();
         contexto.Carregar();
 
         repositorioEquipamento = new RepositorioEquipamentoEmArquivo(contexto);
+        repositorioFabricante = new RepositorioFabricanteEmArquivo(contexto);
     }
 
     [HttpGet]
@@ -40,14 +45,49 @@ public class EquipamentoController : Controller
     [HttpGet]
     public ActionResult Cadastrar()
     {
+        ViewBag.fabricantes = CarregarFabricantes();
+
         return View();
     }
 
     [HttpPost]
     public ActionResult Cadastrar(CadastrarEquipamentoViewModel cadastrarVm)
     {
-        
+        Fabricante? fabricanteSelecionado = repositorioFabricante.SelecionarPorId(cadastrarVm.FabricanteId);
+
+        if (fabricanteSelecionado == null)
+            return RedirectToAction(nameof(Listar));
+
+        Equipamento novoEquipamento = new Equipamento(
+            cadastrarVm.Nome,
+            cadastrarVm.PrecoAquisicao,
+            cadastrarVm.DataFabricacao,
+            fabricanteSelecionado
+        );
+
+        repositorioEquipamento.Cadastrar(novoEquipamento);
 
         return RedirectToAction(nameof(Listar));
+    }
+
+    private List<ListarFabricantesViewModel> CarregarFabricantes()
+    {
+        List<Fabricante> fabricantes = repositorioFabricante.SelecionarTodos();
+
+        List<ListarFabricantesViewModel> listarVms = new List<ListarFabricantesViewModel>();
+
+        foreach (Fabricante fabricante in fabricantes)
+        {
+            ListarFabricantesViewModel vm = new ListarFabricantesViewModel(
+                fabricante.Id,
+                fabricante.Nome,
+                fabricante.Email,
+                fabricante.Telefone
+            );
+
+            listarVms.Add(vm);
+        }
+
+        return listarVms;
     }
 }
