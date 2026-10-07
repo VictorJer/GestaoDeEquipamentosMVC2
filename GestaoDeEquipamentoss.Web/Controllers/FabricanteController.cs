@@ -114,8 +114,7 @@ public class FabricanteController : Controller
     }
 
     [HttpPost]
-    [ActionName("Excluir")]
-    public ActionResult ExcluirConfirmacao(ExcluirFabricanteViewModel vm)
+    public ActionResult Excluir(ExcluirFabricanteViewModel vm)
     {
         Fabricante? fabricante = repositorioFabricante.SelecionarPorId(vm.Id);
 

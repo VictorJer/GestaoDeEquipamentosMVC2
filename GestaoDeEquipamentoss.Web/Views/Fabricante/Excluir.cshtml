@@ -3,15 +3,14 @@
     ViewBag.Titulo = "Excluir Fabricante";
 
 }
-@using GestaoDeEquipamentosWeb.ConsoleApp.ModuloFabricante
-@using GestaoDeEquipamentoss.Web.ModuloFabricante
-
-@model Fabricante;
+@model GestaoDeEquipamentoss.Web.Models.ExcluirFabricanteViewModel
 
 
 
 
 <form class="formulario" action="/Fabricante/Excluir/@Model.Id" method="post">
+    <input type="hidden" name="Id" value="@Model.Id">
+
     <div class="formulario-campo">
         <label>Nome</label>
         <br>

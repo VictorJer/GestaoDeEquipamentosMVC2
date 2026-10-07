@@ -8,27 +8,27 @@
 
 @model ExcluirEquipamentoViewModel
 
-<form class="formulario" action="/Equipamento/Editar/@Model.Id" method="post">
+<form class="formulario" action="/Equipamento/Excluir/@Model.Id" method="post">
     <div class="formulario-campo">
         <label>Nome</label>
-        <input type="text" name="Nome" value="@Model.Nome">
+        <input type="text" name="Nome" value="@Model.Nome" disabled>
     </div>
 
     <div class="formulario-campo">
         <label>Preço Do Produto</label>
-        <input type="number" name="PrecoAquisicao" min="0.01" step="0.01" value="@Model.PrecoAquisicao">
+        <input type="text" name="PrecoAquisicao" min="0.01" step="0.01" value="@Model.PrecoAquisicao.ToString("C2")" disabled>
     </div>
 
     <div class="formulario-campo">
         <label>Data Fabricacao</label>
-        <input type="date" name="DataFabricacao" value="@Model.DataFabricacao">
+        <input type="text" name="DataFabricacao" value="@Model.DataFabricacao.ToString("dd/MM/yyyy")" disabled>
     </div>
 
     <div class="formulario-campo">
         <label>Fabricante</label>
-        <select name="FabricanteId">
-        <input type="date" name="DataFabricacao" value="@Model.Fabricante">                                  
-        </select>
+
+        <input type="text" name="Fabricante" value="@Model.Fabricante" disabled>                                  
+
     </div>
 
     <hr>
