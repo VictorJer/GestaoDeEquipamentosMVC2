@@ -15,6 +15,14 @@ public record CadastrarEquipamentoViewModel(
     string FabricanteId
 );
 
+public record EditarEquipamentoViewModel(
+    string Id,
+    string Nome,
+    decimal PrecoAquisicao,
+    DateTime DataFabricacao,
+    Fabricante Fabricante
+);
+
 
     // public string Nome { get; set; } = string.Empty;
     // public decimal PrecoAquisicao { get; set; }
