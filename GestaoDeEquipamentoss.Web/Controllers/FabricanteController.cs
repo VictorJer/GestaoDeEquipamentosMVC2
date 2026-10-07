@@ -50,9 +50,9 @@ public class FabricanteController : Controller
     }
 
     [HttpPost]
-    public ActionResult Cadastrar(string nome, string email, string telefone)
+    public ActionResult Cadastrar(CadastrarFabricanteViewModel cadastrarVm)
     {
-        Fabricante fabricante = new Fabricante(nome, email, telefone);
+        Fabricante fabricante = new Fabricante(cadastrarVm.Nome, cadastrarVm.Email, cadastrarVm.Telefone);
 
         repositorioFabricante.Cadastrar(fabricante);
 
@@ -67,22 +67,30 @@ public class FabricanteController : Controller
         if (fabricante == null)
             return RedirectToAction(nameof(Listar));
 
-        return View(fabricante);
+        EditarFabricanteViewModel vm = new EditarFabricanteViewModel(
+            fabricante.Id,
+            fabricante.Nome,
+            fabricante.Email,
+            fabricante.Telefone
+        );
+
+
+        return View(vm);
     }
 
     [HttpPost]
-    public ActionResult Editar(string id, string nome, string email, string telefone)
+    public ActionResult Editar(EditarFabricanteViewModel vm)
     {
-        Fabricante? fabricante = repositorioFabricante.SelecionarPorId(id);
+        Fabricante? fabricante = repositorioFabricante.SelecionarPorId(vm.Id);
 
         if (fabricante == null)
             return RedirectToAction(nameof(Listar));
 
-        fabricante.Nome = nome;
-        fabricante.Email = email;
-        fabricante.Telefone = telefone;
+        fabricante.Nome = vm.Nome;
+        fabricante.Email = vm.Email;
+        fabricante.Telefone = vm.Telefone;
 
-        repositorioFabricante.Editar(id, fabricante);
+        repositorioFabricante.Editar(vm.Id, fabricante);
 
         return RedirectToAction(nameof(Listar));
     }
@@ -95,14 +103,21 @@ public class FabricanteController : Controller
         if (fabricante == null)
             return RedirectToAction(nameof(Listar));
 
-        return View(fabricante);
+        ExcluirFabricanteViewModel vm = new ExcluirFabricanteViewModel(
+            fabricante.Id,
+            fabricante.Nome,
+            fabricante.Email,
+            fabricante.Telefone
+        );
+
+        return View(vm);
     }
 
     [HttpPost]
     [ActionName("Excluir")]
-    public ActionResult ExcluirConfirmacao(string id)
+    public ActionResult ExcluirConfirmacao(ExcluirFabricanteViewModel vm)
     {
-        Fabricante? fabricante = repositorioFabricante.SelecionarPorId(id);
+        Fabricante? fabricante = repositorioFabricante.SelecionarPorId(vm.Id);
 
         if (fabricante == null)
             return RedirectToAction(nameof(Listar));
