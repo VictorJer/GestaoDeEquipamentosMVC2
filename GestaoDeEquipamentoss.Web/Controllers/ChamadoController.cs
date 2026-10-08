@@ -50,7 +50,9 @@ public class ChamadoController : Controller
     {
         ViewBag.Equipamentos = CarregarEquipamentos();
 
-        return RedirectToAction(nameof(Listar));
+        CadastrarChamadoViewModel cadastrarChamadoViewModel = new CadastrarChamadoViewModel(string.Empty, null, string.Empty);
+
+        return View(cadastrarChamadoViewModel);
     }
 
     private List<SelectListItem> CarregarEquipamentos()
