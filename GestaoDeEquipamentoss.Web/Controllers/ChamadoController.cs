@@ -5,6 +5,7 @@ using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado.Arquivos;
 using GestaoDeEquipamentosWeb.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentosWeb.ConsoleApp.ModuloEquipamento;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GestaoDeEquipamentoss.Web.Controllers;
 
@@ -42,5 +43,32 @@ public class ChamadoController : Controller
         }
 
         return View(listarVms);
+    }
+
+    [HttpGet]
+    public ActionResult Cadastrar()
+    {
+        ViewBag.Equipamentos = CarregarEquipamentos();
+
+        return RedirectToAction(nameof(Listar));
+    }
+
+    private List<SelectListItem> CarregarEquipamentos()
+    {
+        List<Equipamento> equipamentos = repositorioEquipamento.SelecionarTodos();
+
+        List<SelectListItem> selecionarEquipamento = new List<SelectListItem>();
+
+        foreach (Equipamento e in equipamentos)
+        {
+            SelectListItem selectListItem = new SelectListItem(
+                e.Nome,
+                e.Id
+            );
+
+            selecionarEquipamento.Add(selectListItem);
+        }
+
+        return selecionarEquipamento;
     }
 }
