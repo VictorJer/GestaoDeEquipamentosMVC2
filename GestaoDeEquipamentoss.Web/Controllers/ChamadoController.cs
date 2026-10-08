@@ -1,0 +1,43 @@
+using GestaoDeEquipamentoss.Web.Models;
+using GestaoDeEquipamentoss.Web.ModuloChamado;
+using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado.Arquivos;
+using GestaoDeEquipamentosWeb.ConsoleApp.ModuloChamado;
+using Microsoft.AspNetCore.Mvc;
+
+namespace GestaoDeEquipamentoss.Web.Controllers;
+
+public class ChamadoController : Controller
+{
+    private readonly IRepositorio<Chamado> repositorioChamado;
+
+    public ChamadoController()
+    {
+        ContextoJson contexto = new ContextoJson();
+        contexto.Carregar();
+
+        repositorioChamado = new RepositorioChamadoEmArquivo(contexto);
+    }
+
+    [HttpGet]
+    public ActionResult Listar()
+    {
+        List<Chamado> chamados = repositorioChamado.SelecionarTodos();
+
+        List<ListarChamadoViewModel> listarVms = new List<ListarChamadoViewModel>();
+
+        foreach (Chamado chamado in chamados)
+        {
+            listarVms.Add(new ListarChamadoViewModel(
+                chamado.Id,
+                chamado.Titulo,
+                chamado.Equipamento.Nome,
+                chamado.DataAbertura,
+                chamado.TempoDecorrido,
+                chamado.EstaConcluido
+            ));
+        }
+
+        return View(listarVms);
+    }
+}
