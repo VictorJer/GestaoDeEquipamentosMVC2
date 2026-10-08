@@ -3,6 +3,7 @@ using GestaoDeEquipamentoss.Web.ModuloChamado;
 using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado.Arquivos;
 using GestaoDeEquipamentosWeb.ConsoleApp.ModuloChamado;
+using GestaoDeEquipamentosWeb.ConsoleApp.ModuloEquipamento;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoDeEquipamentoss.Web.Controllers;
@@ -10,6 +11,7 @@ namespace GestaoDeEquipamentoss.Web.Controllers;
 public class ChamadoController : Controller
 {
     private readonly IRepositorio<Chamado> repositorioChamado;
+    private readonly IRepositorio<Equipamento> repositorioEquipamento;
 
     public ChamadoController()
     {
@@ -17,6 +19,7 @@ public class ChamadoController : Controller
         contexto.Carregar();
 
         repositorioChamado = new RepositorioChamadoEmArquivo(contexto);
+        repositorioEquipamento = new RepositorioEquipamentoEmArquivo(contexto);
     }
 
     [HttpGet]
