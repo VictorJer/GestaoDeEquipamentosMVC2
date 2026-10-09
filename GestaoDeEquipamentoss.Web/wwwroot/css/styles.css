@@ -52,6 +52,28 @@ nav {
   margin: 15px 0;
 }
 
+.filtros-listagem {
+  display: flex;
+  gap: 10px;
+  margin: 18px 8px;
+}
+
+.filtros-listagem a {
+  border: 1px solid rgba(152, 62, 209, 0.45);
+  border-radius: 100vmax;
+  color: rgb(129, 46, 181);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 22px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.filtros-listagem a.ativo {
+  background-color: rgb(152, 62, 209);
+  color: white;
+}
+
 .registros {
   width: 100%;
   min-width: 720px;

@@ -24,8 +24,10 @@ public class ChamadoController : Controller
     }
 
     [HttpGet]
-    public ActionResult Listar()
+    public ActionResult Listar(string? status)
     {
+        string? statusSelecionados = status?.ToLower();
+
         List<Chamado> chamados = repositorioChamado.SelecionarTodos();
 
         List<ListarChamadoViewModel> listarVms = new List<ListarChamadoViewModel>();
@@ -41,6 +43,8 @@ public class ChamadoController : Controller
                 chamado.EstaConcluido
             ));
         }
+
+        ViewBag.StatusSelecionado = statusSelecionados;
 
         return View(listarVms);
     }

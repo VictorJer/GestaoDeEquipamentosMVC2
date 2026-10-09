@@ -62,5 +62,6 @@ public class Chamado : EntidadeBase<Chamado>
         Titulo = entidadeAtualizada.Titulo;
         Descricao = entidadeAtualizada.Descricao;
         Equipamento = entidadeAtualizada.Equipamento;
+        EstaConcluido = entidadeAtualizada.EstaConcluido;
     }
 }
