@@ -55,6 +55,34 @@ public class ChamadoController : Controller
         return View(cadastrarChamadoViewModel);
     }
 
+    [HttpPost]
+    public ActionResult Cadastrar(CadastrarChamadoViewModel cadastrarVm)
+    {
+        Equipamento? equipamento = repositorioEquipamento.SelecionarPorId(cadastrarVm.EquipamentoId);
+
+        if (equipamento == null)
+        {
+            ModelState.AddModelError(nameof(cadastrarVm.EquipamentoId), "Selecione um equipamento valido");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Equipamentos = CarregarEquipamentos();
+
+            return View(cadastrarVm);
+        }
+
+        Chamado novoChamado = new Chamado(
+            cadastrarVm.Titulo,
+            equipamento,
+            cadastrarVm.Descricao
+        );
+
+        repositorioChamado.Cadastrar(novoChamado);
+
+        return RedirectToAction(nameof(Listar));
+    }
+
     private List<SelectListItem> CarregarEquipamentos()
     {
         List<Equipamento> equipamentos = repositorioEquipamento.SelecionarTodos();
