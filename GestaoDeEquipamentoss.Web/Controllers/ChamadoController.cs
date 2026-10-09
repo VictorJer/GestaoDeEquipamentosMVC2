@@ -58,17 +58,18 @@ public class ChamadoController : Controller
     [HttpPost]
     public ActionResult Cadastrar(CadastrarChamadoViewModel cadastrarVm)
     {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Equipamentos = CarregarEquipamentos();
+            return View(cadastrarVm);
+        }
+
         Equipamento? equipamento = repositorioEquipamento.SelecionarPorId(cadastrarVm.EquipamentoId);
 
         if (equipamento == null)
         {
-            ModelState.AddModelError(nameof(cadastrarVm.EquipamentoId), "Selecione um equipamento valido");
-        }
-
-        if (!ModelState.IsValid)
-        {
+            ModelState.AddModelError(nameof(cadastrarVm.EquipamentoId), "Selecione um equipamento válido.");
             ViewBag.Equipamentos = CarregarEquipamentos();
-
             return View(cadastrarVm);
         }
 
@@ -79,6 +80,55 @@ public class ChamadoController : Controller
         );
 
         repositorioChamado.Cadastrar(novoChamado);
+
+        return RedirectToAction(nameof(Listar));
+    }
+
+    [HttpGet]
+    public ActionResult Editar(string id)
+    {
+        Chamado? chamado = repositorioChamado.SelecionarPorId(id);
+
+        if (chamado == null)
+            return RedirectToAction(nameof(Listar));
+
+        ViewBag.Equipamentos = CarregarEquipamentos();
+
+        EditarChamadoViewModel editarVm = new EditarChamadoViewModel(
+            chamado.Id,
+            chamado.Titulo,
+            chamado.Descricao,
+            chamado.Equipamento.Id
+        );
+
+        return View(editarVm);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(EditarChamadoViewModel editarVm)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Equipamentos = CarregarEquipamentos();
+            return View(editarVm);
+        }
+
+        Equipamento? equipamento = repositorioEquipamento.SelecionarPorId(editarVm.EquipamentoId);
+
+        if (equipamento == null)
+        {
+            ModelState.AddModelError(nameof(editarVm.EquipamentoId), "Selecione um equipamento válido.");
+            ViewBag.Equipamentos = CarregarEquipamentos();
+            return View(editarVm);
+        }
+
+        Chamado chamadoAtualizado = new Chamado(
+            editarVm.Titulo,
+            equipamento,
+            editarVm.Descricao
+        );
+
+        repositorioChamado.Editar(editarVm.Id, chamadoAtualizado);
 
         return RedirectToAction(nameof(Listar));
     }
