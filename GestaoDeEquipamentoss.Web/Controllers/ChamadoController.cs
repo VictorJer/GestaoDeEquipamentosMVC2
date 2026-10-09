@@ -11,7 +11,7 @@ namespace GestaoDeEquipamentoss.Web.Controllers;
 
 public class ChamadoController : Controller
 {
-    private readonly IRepositorio<Chamado> repositorioChamado;
+    private readonly IRepositorioChamado repositorioChamado;
     private readonly IRepositorio<Equipamento> repositorioEquipamento;
 
     public ChamadoController()
@@ -28,7 +28,16 @@ public class ChamadoController : Controller
     {
         string? statusSelecionados = status?.ToLower();
 
-        List<Chamado> chamados = repositorioChamado.SelecionarTodos();
+        List<Chamado> chamados;
+
+        if (statusSelecionados == "em-aberto")
+            chamados = repositorioChamado.SelecionarTodosEmAberto();
+
+        else if (statusSelecionados == "concluidos")
+            chamados = repositorioChamado.SelecionarTodosConcluido();
+        
+        else
+            chamados = repositorioChamado.SelecionarTodos();
 
         List<ListarChamadoViewModel> listarVms = new List<ListarChamadoViewModel>();
 
