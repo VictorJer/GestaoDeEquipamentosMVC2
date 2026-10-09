@@ -1,0 +1,45 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Excluir Chamado";
+}
+
+@model ExcluirChamadoViewModel
+
+<form class="formulario" asp-action="Excluir" method="post">
+    <input asp-for="Id" type="hidden">
+
+    <div class="formulario-campo">
+        <label asp-for="Titulo">Título</label>
+        <input asp-for="Titulo" type="text" disabled>
+    </div>
+
+    <div class="formulario-campo">
+        <label asp-for="Descricao">Descrição</label>
+        <textarea asp-for="Descricao" disabled></textarea>
+    </div>
+
+    <div class="formulario-campo">
+        <label asp-for="Equipamento">Equipamento</label>
+        <input asp-for="Equipamento" type="text" disabled>
+    </div>
+
+    <div class="formulario-campo">
+        <label asp-for="DataAbertura">Data de Abertura</label>
+        <input type="text" value="@Model.DataAbertura.ToString("dd/MM/yyyy")" disabled>
+    </div>
+
+    <div class="formulario-campo">
+        <label asp-for="TempoDecorrido">Tempo Decorrido</label>
+        <input type="text" value="@Model.TempoDecorrido dia(s)" disabled>
+    </div>
+
+    <div class="formulario-campo">
+        <label>Status</label>
+        <input type="text" value="@(Model.EstaConcluido ? "Concluído" : "Aberto")" disabled>
+    </div>
+
+    <div class="formulario-acoes">
+        <a asp-action="Listar">Voltar</a>
+        <button type="submit">Confirmar exclusão</button>
+    </div>
+</form>
