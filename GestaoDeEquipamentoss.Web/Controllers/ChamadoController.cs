@@ -126,6 +126,7 @@ public class ChamadoController : Controller
         Chamado chamadoAtualizado = new Chamado(
             editarVm.Titulo,
             equipamento,
+            editarVm.EstaConcluido,
             editarVm.Descricao
         );
 

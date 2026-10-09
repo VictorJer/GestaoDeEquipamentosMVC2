@@ -31,6 +31,14 @@ public class Chamado : EntidadeBase<Chamado>
         Descricao = descricao;
     }
 
+    public Chamado(string titulo, Equipamento equipamento, bool estaConcluido ,string? descricao = null) : this()
+    {
+        Titulo = titulo;
+        Equipamento = equipamento;
+        EstaConcluido = estaConcluido;
+        Descricao = descricao;
+    }
+
     public void Concluir()
     {
         EstaConcluido = true;
