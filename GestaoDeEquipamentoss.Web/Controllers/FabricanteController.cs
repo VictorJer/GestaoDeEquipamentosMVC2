@@ -52,6 +52,9 @@ public class FabricanteController : Controller
     [HttpPost]
     public ActionResult Cadastrar(CadastrarFabricanteViewModel cadastrarVm)
     {
+        if (!ModelState.IsValid)
+            return View(cadastrarVm);
+
         Fabricante fabricante = new Fabricante(cadastrarVm.Nome, cadastrarVm.Email, cadastrarVm.Telefone);
 
         repositorioFabricante.Cadastrar(fabricante);
@@ -127,4 +130,3 @@ public class FabricanteController : Controller
     }
 
 }
-

@@ -53,10 +53,20 @@ public class EquipamentoController : Controller
     [HttpPost]
     public ActionResult Cadastrar(CadastrarEquipamentoViewModel cadastrarVm)
     {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Fabricantes = CarregarFabricantes();
+            return View(cadastrarVm);
+        }
+
         Fabricante? fabricanteSelecionado = repositorioFabricante.SelecionarPorId(cadastrarVm.FabricanteId);
 
         if (fabricanteSelecionado == null)
-            return RedirectToAction(nameof(Listar));
+        {
+            ModelState.AddModelError(nameof(cadastrarVm.FabricanteId), "Selecione um fabricante válido.");
+            ViewBag.Fabricantes = CarregarFabricantes();
+            return View(cadastrarVm);
+        }
 
         Equipamento novoEquipamento = new Equipamento(
             cadastrarVm.Nome,
