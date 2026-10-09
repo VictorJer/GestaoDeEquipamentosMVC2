@@ -98,7 +98,8 @@ public class ChamadoController : Controller
             chamado.Id,
             chamado.Titulo,
             chamado.Descricao,
-            chamado.Equipamento.Id
+            chamado.Equipamento.Id,
+            chamado.EstaConcluido
         );
 
         return View(editarVm);

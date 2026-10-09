@@ -30,6 +30,14 @@
         <span asp-validation-for="EquipamentoId" class="formulario-validacao-campo"></span>
     </div>
 
+    <div class="formulario-campo">
+        <label for="EstaConcluido">Status</label>
+        <label>
+            <input asp-for="EstaConcluido" type="checkbox">
+            Comcluir chamado
+        </label>
+    </div>
+
     <div class="formulario-acoes">
         <a asp-action="Listar">Voltar</a>
         <button type="submit">Salvar alterações</button>
