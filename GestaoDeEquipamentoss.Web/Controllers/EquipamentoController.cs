@@ -104,10 +104,20 @@ public class EquipamentoController : Controller
     [HttpPost]
     public ActionResult Editar(EditarEquipamentoViewModel vm)
     {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Fabricantes = CarregarFabricantes();
+            return View(vm);
+        }
+
         Fabricante? fabricante = repositorioFabricante.SelecionarPorId(vm.FabricanteId);
 
         if (fabricante == null)
-            return RedirectToAction(nameof(Listar));
+        {
+            ModelState.AddModelError(nameof(vm.FabricanteId), "Selecione um fabricante válido.");
+            ViewBag.Fabricantes = CarregarFabricantes();
+            return View(vm);
+        }
 
         Equipamento? equipamento = new Equipamento(
             vm.Nome, 
@@ -150,6 +160,9 @@ public class EquipamentoController : Controller
     [ActionName("Excluir")]
     public ActionResult ExcluirConfirmado(ExcluirEquipamentoViewModel excluirVm)
     {
+        if (string.IsNullOrWhiteSpace(excluirVm.Id))
+            return RedirectToAction(nameof(Listar));
+
         Equipamento? equipamentoSelecionado = repositorioEquipamento.SelecionarPorId(excluirVm.Id);
 
         if (equipamentoSelecionado == null)

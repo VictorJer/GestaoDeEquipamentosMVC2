@@ -188,6 +188,9 @@ public class ChamadoController : Controller
     [ActionName("Excluir")]
     public ActionResult ExcluirConfirmado(ExcluirChamadoViewModel excluirVm)
     {
+        if (string.IsNullOrWhiteSpace(excluirVm.Id))
+            return RedirectToAction(nameof(Listar));
+
         Chamado? chamado = repositorioChamado.SelecionarPorId(excluirVm.Id);
 
         if (chamado == null)

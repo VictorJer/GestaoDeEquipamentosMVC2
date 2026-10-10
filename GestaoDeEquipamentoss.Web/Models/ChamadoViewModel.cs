@@ -24,6 +24,7 @@ public record CadastrarChamadoViewModel(
 );
 
 public record EditarChamadoViewModel(
+    [Required(ErrorMessage = "O identificador do chamado é obrigatório.")]
     string Id,
 
     [Required(ErrorMessage = "O campo \"Título\" deve ser preenchido.")]
@@ -40,6 +41,7 @@ public record EditarChamadoViewModel(
 );
 
 public record ExcluirChamadoViewModel(
+    [Required(ErrorMessage = "O identificador do chamado é obrigatório.")]
     string Id,
     string Titulo,
     string? Descricao,

@@ -84,14 +84,19 @@ public class FabricanteController : Controller
     [HttpPost]
     public ActionResult Editar(EditarFabricanteViewModel vm)
     {
+        if (!ModelState.IsValid)
+            return View(vm);
+
+        Fabricante? fabricanteExistente = repositorioFabricante.SelecionarPorId(vm.Id);
+
+        if (fabricanteExistente == null)
+            return RedirectToAction(nameof(Listar));
+
         Fabricante? fabricante = new Fabricante(
-            vm.Nome, 
-            vm.Email, 
+            vm.Nome,
+            vm.Email,
             vm.Telefone
             );
-
-        if (fabricante == null)
-            return RedirectToAction(nameof(Listar));
 
         repositorioFabricante.Editar(vm.Id, fabricante);
 
@@ -119,6 +124,9 @@ public class FabricanteController : Controller
     [HttpPost]
     public ActionResult Excluir(ExcluirFabricanteViewModel vm)
     {
+        if (string.IsNullOrWhiteSpace(vm.Id))
+            return RedirectToAction(nameof(Listar));
+
         Fabricante? fabricante = repositorioFabricante.SelecionarPorId(vm.Id);
 
         if (fabricante == null)

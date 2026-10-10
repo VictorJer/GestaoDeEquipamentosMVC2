@@ -25,14 +25,25 @@ public record CadastrarEquipamentoViewModel(
 );
 
 public record EditarEquipamentoViewModel(
+    [Required(ErrorMessage = "O identificador do equipamento é obrigatório.")]
     string Id,
+
+    [Required(ErrorMessage = "O campo \"Nome\" deve ser preenchido.")]
+    [StringLength(50, MinimumLength = 2, ErrorMessage = "O campo \"Nome\" deve conter entre 2 e 50 caracteres.")]
     string Nome,
+
+    [Range(typeof(decimal), "0.01", "79228162514264337593543950335", ErrorMessage = "O campo \"Preço de Aquisição\" deve conter um valor positivo.")]
     decimal PrecoAquisicao,
+
+    [DataFabricacaoNaoFutura]
     DateTime DataFabricacao,
+
+    [Required(ErrorMessage = "O campo \"Fabricante\" deve ser preenchido.")]
     string FabricanteId
 );
 
 public record ExcluirEquipamentoViewModel(
+    [Required(ErrorMessage = "O identificador do equipamento é obrigatório.")]
     string Id,
     string Nome,
     decimal PrecoAquisicao,

@@ -7,7 +7,9 @@
 
 @model ExcluirEquipamentoViewModel
 
-<form class="formulario" action="/Equipamento/Excluir/@Model.Id" method="post">
+<form class="formulario" asp-action="Excluir" method="post">
+    <input asp-for="Id" type="hidden">
+
     <div class="formulario-campo">
         <label>Nome</label>
         <input type="text" name="Nome" value="@Model.Nome" disabled>
@@ -33,7 +35,7 @@
     <hr>
 
     <div class="formulario-acoes">
-        <a href="/Equipamento/Listar">Voltar</a> 
+        <a asp-action="Listar">Voltar</a>
         <button type="submit">Confirmar</button>
     </div>
 </form>
