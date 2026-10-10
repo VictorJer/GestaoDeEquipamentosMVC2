@@ -24,15 +24,15 @@ public class ChamadoController : Controller
     }
 
 
-    private bool FiltrarChamadosEmAberto(Chamado chamado)
-    {
-        return !chamado.EstaConcluido;
-    }
+    // private bool FiltrarChamadosEmAberto(Chamado chamado)
+    // {
+    //     return !chamado.EstaConcluido;
+    // }
 
-    private bool FiltrarChamadosConcluido(Chamado chamado)
-    {
-        return chamado.EstaConcluido;
-    }
+    // private bool FiltrarChamadosConcluido(Chamado chamado)    //e o jeito 3
+    // {
+    //     return chamado.EstaConcluido;
+    // }
 
 
     [HttpGet]
@@ -43,10 +43,13 @@ public class ChamadoController : Controller
         List<Chamado> chamados;
 
         if (statusSelecionados == "em-aberto")
-            chamados = repositorioChamado.FiltrarChamados(FiltrarChamadosEmAberto);
+            chamados = repositorioChamado.Filtrar(chamado => !chamado.EstaConcluido); // jeito 1
 
         else if (statusSelecionados == "concluidos")
-            chamados = repositorioChamado.FiltrarChamados(FiltrarChamadosConcluido);
+            chamados = repositorioChamado.Filtrar(delegate (Chamado chamado) // jeito 2
+            {
+                return chamado.EstaConcluido;
+            });
         
         else
             chamados = repositorioChamado.SelecionarTodos();

@@ -5,7 +5,7 @@ using GestaoDeEquipamentosWeb.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentosWeb.ConsoleApp.ModuloChamado;
 
-public delegate bool FiltroChamado(Chamado chamado);
+// public delegate bool FiltroChamado(Chamado chamado);
 
 
 public class Chamado : EntidadeBase<Chamado>
