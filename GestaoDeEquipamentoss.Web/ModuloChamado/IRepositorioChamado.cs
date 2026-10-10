@@ -3,7 +3,5 @@ using GestaoDeEquipamentosWeb.ConsoleApp.ModuloChamado;
 
 public interface IRepositorioChamado : IRepositorio<Chamado>
 {
-    List<Chamado> SelecionarTodosEmAberto();
-
-    List<Chamado> SelecionarTodosConcluido();
+    List<Chamado> FiltrarChamados(FiltroChamado filtro);
 }

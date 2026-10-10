@@ -10,30 +10,43 @@ public class RepositorioChamadoEmArquivo : RepositorioBaseEmArquivo<Chamado>, IR
     {
     }
 
-    public List<Chamado> SelecionarTodosConcluido()
-    {
-        List<Chamado> chamadosConcluidos = new List<Chamado>();
+    // public List<Chamado> SelecionarTodosConcluido()
+    // {
+    //     List<Chamado> chamadosConcluidos = new List<Chamado>();
 
-        foreach(Chamado c in chamadosConcluidos)
+    //     foreach(Chamado c in chamadosConcluidos)
+    //     {
+    //         if (c.EstaConcluido)
+    //             chamadosConcluidos.Add(c);
+    //     }
+
+    //     return chamadosConcluidos;
+    // }
+
+    // public List<Chamado> SelecionarTodosEmAberto()
+    // {
+    //     List<Chamado> chamadosAbertos = new List<Chamado>();
+
+    //     foreach(Chamado c in chamadosAbertos)
+    //     {
+    //         if (!c.EstaConcluido)
+    //             chamadosAbertos.Add(c);
+    //     }
+
+    //     return chamadosAbertos;
+    // }
+
+    public List<Chamado> FiltrarChamados(FiltroChamado filtro)
+    {
+        List<Chamado> chamadosFiltrados = new List<Chamado>();
+
+        foreach(Chamado c in registros)
         {
-            if (c.EstaConcluido)
-                chamadosConcluidos.Add(c);
+            if (filtro(c))
+                chamadosFiltrados.Add(c);
         }
 
-        return chamadosConcluidos;
-    }
-
-    public List<Chamado> SelecionarTodosEmAberto()
-    {
-        List<Chamado> chamadosAbertos = new List<Chamado>();
-
-        foreach(Chamado c in chamadosAbertos)
-        {
-            if (!c.EstaConcluido)
-                chamadosAbertos.Add(c);
-        }
-
-        return chamadosAbertos;
+        return chamadosFiltrados;
     }
 
     protected override List<Chamado> CarregarRegistros()
